@@ -17,13 +17,13 @@ import io.netty.handler.logging.LoggingHandler;
 public class TestNodeServer {
 
     public static void main(String[] args) throws InterruptedException {
-        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        EventLoopGroup bossGroup = new NioEventLoopGroup(5);
+        EventLoopGroup workerGroup = new NioEventLoopGroup(60);
         try {
             ServerBootstrap bootstrap = new ServerBootstrap();
             bootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    .handler(new LoggingHandler(LogLevel.INFO))
+//                    .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new WebSocketServerInitializer());
             Channel channel = bootstrap.bind(33532).sync().channel();
             channel.closeFuture().sync();
