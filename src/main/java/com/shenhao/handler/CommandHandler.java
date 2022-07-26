@@ -4,14 +4,13 @@ import com.shenhao.ChannelHolder;
 import com.shenhao.model.CommandDTO;
 import com.shenhao.model.TaskDeviceInfo;
 import com.shenhao.util.JsonUtil;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -64,9 +63,9 @@ public class CommandHandler {
                     ChannelHolder.sendMessageTo(channelShortId, command);
                     return;
                 }
-                Files.copy(is, Paths.get(radioPath));
+                FileUtils.copyToFile(is, new File(data.getRadioPath()));
             } catch (IOException e) {
-                log.error("关闭文件失败,e");
+                log.error("关闭文件失败", e);
                 command.setCode("000001");
                 command.setMessage("照片文件不存在");
             }
@@ -84,9 +83,9 @@ public class CommandHandler {
                         ChannelHolder.sendMessageTo(channelShortId, command);
                         return;
                     }
-                    Files.copy(is, Paths.get(data.getInfraredPicPath()));
+                    FileUtils.copyToFile(is, new File(data.getInfraredPicPath()));
                 } catch (IOException e) {
-                    log.error("关闭文件失败,e");
+                    log.error("关闭文件失败", e);
                     command.setMessage("照片文件不存在");
                     command.setCode("000001");
                 }
@@ -98,9 +97,9 @@ public class CommandHandler {
                     ChannelHolder.sendMessageTo(channelShortId, command);
                     return;
                 }
-                Files.copy(is, Paths.get(data.getVisiblePicPath()));
+                FileUtils.copyToFile(is, new File(data.getVisiblePicPath()));
             } catch (IOException e) {
-                log.error("关闭文件失败,e");
+                log.error("关闭文件失败", e);
                 command.setCode("000001");
                 command.setMessage("照片文件不存在");
             }
