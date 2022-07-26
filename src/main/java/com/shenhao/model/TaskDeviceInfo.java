@@ -57,4 +57,13 @@ public class TaskDeviceInfo {
 
     @JsonProperty("DeviceName")
     private String deviceName;
+
+    @JsonProperty("InfraredPicPath")
+    private String infraredPicPath;
+
+    @JsonProperty("FLIRFoucs")
+    private Double FLIRFocus;
+
+    @JsonProperty("RadioPath")
+    private String radioPath;
 }

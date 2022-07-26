@@ -19,6 +19,12 @@ public class CommandDTO<T> {
     @JsonProperty("FunCode")
     private Integer funCode;
 
+    @JsonProperty("Code")
+    private String code;
+
+    @JsonProperty("Message")
+    private String message;
+
     @JsonProperty("Data")
     private T data;
 
