@@ -1,4 +1,4 @@
-package com.shenhao;
+package com.shenhao.netty;
 
 import com.shenhao.handler.CommandHandler;
 import io.netty.channel.ChannelInitializer;

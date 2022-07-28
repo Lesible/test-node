@@ -52,7 +52,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.shenhao.TestNodeServer</mainClass>
+                            <mainClass>com.shenhao.netty.TestNodeServer</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

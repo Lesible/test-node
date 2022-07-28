@@ -1,4 +1,4 @@
-package com.shenhao;
+package com.shenhao.netty;
 
 import com.shenhao.util.JsonUtil;
 import io.netty.channel.Channel;

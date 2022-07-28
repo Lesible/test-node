@@ -1,6 +1,6 @@
 package com.shenhao.handler;
 
-import com.shenhao.ChannelHolder;
+import com.shenhao.netty.ChannelHolder;
 import com.shenhao.model.CommandDTO;
 import com.shenhao.model.TaskDeviceInfo;
 import com.shenhao.util.JsonUtil;
@@ -50,20 +50,20 @@ public class CommandHandler {
         command.setResponseType(1);
         command.setCode("000000");
         int patrolType = data.getPatrolType();
-        ClassLoader classLoader = CommandHandler.class.getClassLoader();
+        Class<?> clazz = getClass();
         String deviceName = data.getDeviceName();
         // 模拟拍照
         // 声音
         if (patrolType == 5) {
             String radioPath = data.getRadioPath();
-            try (InputStream is = classLoader.getResourceAsStream("radio" + File.separator + deviceName + ".mp4")) {
+            try (InputStream is = clazz.getResourceAsStream("/radio" + File.separator + deviceName + ".mp4")) {
                 if (is == null) {
                     command.setMessage("照片文件不存在");
                     command.setCode("000001");
                     ChannelHolder.sendMessageTo(channelShortId, command);
                     return;
                 }
-                FileUtils.copyToFile(is, new File(data.getRadioPath()));
+                FileUtils.copyToFile(is, new File(radioPath));
             } catch (IOException e) {
                 log.error("关闭文件失败", e);
                 command.setCode("000001");
@@ -72,11 +72,11 @@ public class CommandHandler {
         } // 局放不处理
         else if (patrolType != 6) {
             // 红外
-            String visible = "visible" + File.separator + deviceName + ".jpg";
+            String visible = "/visible" + File.separator + deviceName + ".jpg";
             if (patrolType == 1 || patrolType == 8) {
-                visible = "infrared" + File.separator + deviceName + "_V.jpg";
-                String infrared = "infrared" + File.separator + deviceName + "_I.jpg";
-                try (InputStream is = classLoader.getResourceAsStream(infrared)) {
+                visible = "/infrared" + File.separator + deviceName + "_V.jpg";
+                String infrared = "/infrared" + File.separator + deviceName + "_I.jpg";
+                try (InputStream is = clazz.getResourceAsStream(infrared)) {
                     if (is == null) {
                         command.setMessage("照片文件不存在");
                         command.setCode("000001");
@@ -90,7 +90,7 @@ public class CommandHandler {
                     command.setCode("000001");
                 }
             }
-            try (InputStream is = classLoader.getResourceAsStream(visible)) {
+            try (InputStream is = clazz.getResourceAsStream(visible)) {
                 if (is == null) {
                     command.setMessage("照片文件不存在");
                     command.setCode("000001");
