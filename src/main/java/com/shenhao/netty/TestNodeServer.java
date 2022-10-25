@@ -1,10 +1,12 @@
 package com.shenhao.netty;
 
+import com.shenhao.mqtt.ReceivedMqttMes;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 /**
  * <p>  </p>
@@ -24,6 +26,13 @@ public class TestNodeServer {
 //                    .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new WebSocketServerInitializer());
             Channel channel = bootstrap.bind(33532).sync().channel();
+            new Thread(() -> {
+                try {
+                    ReceivedMqttMes.start();
+                } catch (MqttException e) {
+                    throw new RuntimeException(e);
+                }
+            }, "mqtt").start();
             channel.closeFuture().sync();
         } finally {
             bossGroup.shutdownGracefully();
