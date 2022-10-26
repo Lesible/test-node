@@ -72,7 +72,7 @@ public class RobotRealInfo {
             realInfo.hum = 27D;
             realInfo.temp = 35D;
             realInfo.batteryAmp = 1.5D;
-            realInfo.batteryPower = 99D;
+            realInfo.batteryPower = 98D;
             realInfo.detectTemp = 35D;
             realInfo.batteryVol = 27D;
             realInfo.driveState = 0;

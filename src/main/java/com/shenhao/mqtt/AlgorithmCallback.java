@@ -39,6 +39,9 @@ public class AlgorithmCallback implements MqttCallback {
             return;
         }
         log.info("topic:{},message:{}", topic, json);
+        if (!"RecognitionModuleServerSend".equals(topic)) {
+            return;
+        }
         JavaType type = JsonUtil.constructType(CommandDTO.class, PatrolDeviceInfo.class);
         CommandDTO<PatrolDeviceInfo> command = JsonUtil.parseJson(json, type);
         if (command != null) {

@@ -44,10 +44,7 @@ public class ReceivedMqttMes {
         //设置断开后重新连接
         options.setAutomaticReconnect(true);
 
-        MqttTopic topic = client.getTopic("RecognitionModuleServerReceived");
         //setWill方法，如果项目中需要知道客户端是否掉线可以调用该方法。设置最终端口的通知消息
-        //遗嘱
-        options.setWill(topic, "close".getBytes(), 2, true);
         if (client.isConnected()) {
             client.disconnect();
         }
